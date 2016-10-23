@@ -7,8 +7,8 @@ module ApiSampler
     validates :endpoint_id, presence: true
     validates :request_method, presence: true
     validates :request_method, inclusion: ApiSampler::HTTP_METHODS
-    validates :query, presence: true
-    validates :request_body, presence: true
-    validates :response_body, presence: true
+    validates :query, length: { minimum: 0, allow_nil: false }
+    validates :request_body, length: { minimum: 0, allow_nil: false }
+    validates :response_body, length: { minimum: 0, allow_nil: false }
   end
 end
