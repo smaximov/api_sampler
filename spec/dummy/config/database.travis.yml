@@ -1,0 +1,6 @@
+test:
+  adapter: postgresql
+  encoding: unicode
+  username: postgres
+  database: api_sampler_dummy_test
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>

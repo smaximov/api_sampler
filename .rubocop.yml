@@ -3,6 +3,9 @@ inherit_from: .rubocop_todo.yml
 AllCops:
   Exclude:
     - spec/dummy/**/*
+    - tmp/**/*
+    - vendor/**/*
+    - bin/*
   TargetRubyVersion: 2.3
 
 # Style cops

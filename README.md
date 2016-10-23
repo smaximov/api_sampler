@@ -1,5 +1,7 @@
 # ApiSampler
 
+[![Build Status](https://travis-ci.org/smaximov/api_sampler.svg?branch=master)](https://travis-ci.org/smaximov/api_sampler)
+
 Collect samples (request/response pairs) for API endpoints of your Rails app.
 
 ## Installation
@@ -48,8 +50,7 @@ Alternatively, you may specify the database role and password using environment 
 Then, you need to setup the testing database and schema:
 
 ``` bash
-$ rake app:db:test:prepare
-$ rake app:db:migrate
+$ bundle exec rake db:setup RAILS_ENV=test
 ```
 
 ### Running tests
