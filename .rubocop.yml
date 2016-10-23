@@ -28,6 +28,7 @@ Style/Documentation:
   Exclude:
     - spec/**/*
     - app/**/*
+    - db/migrate/*
 
 Style/BlockDelimiters:
   Exclude:
