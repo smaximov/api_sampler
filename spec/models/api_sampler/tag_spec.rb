@@ -5,6 +5,8 @@ module ApiSampler
   RSpec.describe Tag, type: :model do
     subject { FactoryGirl.build(:tag) }
 
+    it { is_expected.to have_and_belong_to_many(:samples) }
+
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_uniqueness_of(:name) }
     it { is_expected.to have_db_index(:name) }

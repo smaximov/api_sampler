@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161023104716) do
+ActiveRecord::Schema.define(version: 20161023105823) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,14 @@ ActiveRecord::Schema.define(version: 20161023104716) do
     t.index ["request_method"], name: "index_api_sampler_samples_on_request_method", using: :btree
   end
 
+  create_table "api_sampler_samples_tags", id: false, force: :cascade do |t|
+    t.integer "sample_id", null: false
+    t.integer "tag_id",    null: false
+    t.index ["sample_id", "tag_id"], name: "index_api_sampler_samples_tags_on_sample_id_and_tag_id", unique: true, using: :btree
+    t.index ["sample_id"], name: "index_api_sampler_samples_tags_on_sample_id", using: :btree
+    t.index ["tag_id"], name: "index_api_sampler_samples_tags_on_tag_id", using: :btree
+  end
+
   create_table "api_sampler_tags", force: :cascade do |t|
     t.text     "name",       null: false
     t.datetime "created_at", null: false
@@ -42,4 +50,6 @@ ActiveRecord::Schema.define(version: 20161023104716) do
   end
 
   add_foreign_key "api_sampler_samples", "api_sampler_endpoints", column: "endpoint_id"
+  add_foreign_key "api_sampler_samples_tags", "api_sampler_samples", column: "sample_id"
+  add_foreign_key "api_sampler_samples_tags", "api_sampler_tags", column: "tag_id"
 end
