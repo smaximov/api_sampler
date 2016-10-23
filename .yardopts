@@ -1,0 +1,8 @@
+--markup markdown
+--protected
+--no-private
+--embed-mixin ClassMethods
+lib/**/*.rb
+-
+README.md
+MIT-LICENSE

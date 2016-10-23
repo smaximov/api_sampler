@@ -1,0 +1,42 @@
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  Exclude:
+    - spec/dummy/**/*
+  TargetRubyVersion: 2.3
+
+# Style cops
+Style/ExtraSpacing:
+  Enabled: false
+
+Style/AutoResourceCleanup:
+  Enabled: true
+
+Style/CollectionMethods:
+  Enabled: true
+
+Style/Send:
+  Enabled: true
+
+Style/StringMethods:
+  Enabled: true
+
+Style/SymbolArray:
+  Enabled: true
+
+Style/Documentation:
+  Exclude:
+    - spec/**/*
+    - app/**/*
+
+Style/BlockDelimiters:
+  Exclude:
+    - spec/**/*
+
+Style/SpecialGlobalVars:
+  EnforcedStyle: use_english_names
+
+# Metrics cops
+Metrics/LineLength:
+  AllowURI: true
+  IgnoreCopDirectives: true
