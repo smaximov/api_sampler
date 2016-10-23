@@ -8,6 +8,7 @@ module ApiSampler
 
     it { is_expected.to validate_presence_of(:path) }
     it { is_expected.to validate_uniqueness_of(:path) }
+    it { is_expected.to have_db_index(:path) }
     it { is_expected.to have_many(:samples) }
   end
 end
