@@ -47,7 +47,7 @@ $ sudo -u postgres createuser $USER --login --createdb
 Alternatively, you may specify the database role and password using environment variables
 `API_SAMPLER_DB_USERNAME` and `API_SAMPLER_DB_PASSWORD`.
 
-Then, you need to setup the testing database and schema:
+Finally, setup the testing database and schema:
 
 ``` bash
 $ bundle exec rake db:setup RAILS_ENV=test
