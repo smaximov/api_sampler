@@ -1,6 +1,8 @@
 # ApiSampler
 
 [![Build Status](https://travis-ci.org/smaximov/api_sampler.svg?branch=master)](https://travis-ci.org/smaximov/api_sampler)
+[![Yard Docs](http://img.shields.io/badge/yard-docs-blue.svg)](http://www.rubydoc.info/github/smaximov/api_sampler/master)
+[![Inline docs](http://inch-ci.org/github/smaximov/api_sampler.svg?branch=master)](http://inch-ci.org/github/smaximov/api_sampler)
 
 Collect samples (request/response pairs) for API endpoints of your Rails app.
 
