@@ -186,6 +186,9 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
     yard (0.9.5)
+    yard-doctest (0.1.7)
+      minitest
+      yard
 
 PLATFORMS
   ruby
@@ -200,6 +203,7 @@ DEPENDENCIES
   rubocop
   shoulda-matchers (~> 3.1.1)
   yard
+  yard-doctest
 
 BUNDLED WITH
    1.13.6

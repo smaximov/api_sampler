@@ -7,10 +7,12 @@ rvm:
 cache: bundler
 script:
   - bundle exec rake rubocop
+  - bundle exec rake yard:doctest
   - bundle exec rake spec
 before_script:
   - cp spec/dummy/config/database.travis.yml spec/dummy/config/database.yml
   - RAILS_ENV=test bundle exec rake db:setup --trace
+  - bundle exec yard config load_plugins true
 matrix:
   allow_failures:
     rvm:

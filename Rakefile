@@ -21,4 +21,10 @@ require 'rspec/core/rake_task'
 
 RSpec::Core::RakeTask.new(:spec)
 
+require 'yard-doctest'
+YARD::Doctest::RakeTask.new do |task|
+  task.doctest_opts = %w(-v)
+  task.pattern = 'lib/**/*.rb'
+end
+
 task default: :spec
