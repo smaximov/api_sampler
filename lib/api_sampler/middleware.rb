@@ -11,9 +11,11 @@ module ApiSampler
     def call(env)
       request = Rack::Request.new(env)
       status, headers, response = @app.call(env)
-      collect_sample(request, response)
+      collect_sample(request, response) if allowed?(request)
       [status, headers, response]
     end
+
+    private
 
     # Collects a sample of the current request.
     #
@@ -27,6 +29,16 @@ module ApiSampler
                                response_body: response.body)
     rescue ActiveRecord::RecordInvalid => error
       Rails.logger.error "api_sampler :: collect_sample :: #{error}"
+    end
+
+    # Check if the request is allowed.
+    #
+    # @param request [Rack::Request] the current request.
+    # @return [Boolean]
+    def allowed?(request)
+      ApiSampler.config.request_whitelist.any? do |matcher|
+        matcher.matches?(request)
+      end
     end
   end
 end

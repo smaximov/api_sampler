@@ -2,10 +2,14 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Basic samples collecting', type: :request do
+RSpec.describe 'Basic samples collecting', type: :request, reset_config: true do
   subject { ApiSampler::Sample.last }
   let(:response_body) do
     JSON.parse(subject.response_body, symbolize_names: true)
+  end
+
+  configure do |config|
+    config.allow %r{^/api/v1/kthnxbye}
   end
 
   def perform_request
