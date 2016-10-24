@@ -17,7 +17,7 @@ module ApiSampler
   #   matcher.matches?(request) #=> true
   class RequestMatcher
     # @param rule [Regexp, #call]
-    #   the rule determining whether a particular request should match.
+    #   the rule determining whether the particular request should match.
     #
     #   If `rule` is Regexp, match is determined by testing the regexp
     #   against the request path. If `rule` responds to `#call`, it is
