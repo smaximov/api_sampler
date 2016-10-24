@@ -40,6 +40,9 @@ Style/BlockDelimiters:
 Style/SpecialGlobalVars:
   EnforcedStyle: use_english_names
 
+Style/ParallelAssignment:
+  Enabled: false
+
 # Metrics cops
 Metrics/LineLength:
   AllowURI: true

@@ -10,6 +10,7 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'factory_girl_rails'
 
+require 'support/reset_config'
 require 'support/shoulda/matchers'
 
 ActiveRecord::Migration.maintain_test_schema!
