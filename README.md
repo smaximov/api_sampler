@@ -57,10 +57,11 @@ $ bundle exec rake db:setup RAILS_ENV=test
 
 ### Running tests
 
-Execute the following command to run tests:
+Execute the following commands to run tests:
 
 ``` bash
-$ rake spec
+$ bundle exec rake spec         # RSpec tests
+$ bundle exec rake yard:doctest # YARD documentation tests
 ```
 
 ## License
