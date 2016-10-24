@@ -36,7 +36,11 @@ module ApiSampler
     # @param request [Rack::Request] the current request.
     # @return [Boolean]
     def allowed?(request)
-      ApiSampler.config.request_whitelist.any? do |matcher|
+      return false unless ApiSampler.config.request_whitelist.any? do |matcher|
+        matcher.matches?(request)
+      end
+
+      ApiSampler.config.request_blacklist.none? do |matcher|
         matcher.matches?(request)
       end
     end

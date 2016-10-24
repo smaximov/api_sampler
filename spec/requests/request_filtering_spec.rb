@@ -50,4 +50,27 @@ RSpec.describe 'Request filtering', type: :request, reset_config: true do
       end
     end
   end
+
+  context 'blacklisting' do
+    context 'with a single matching rule' do
+      configure do |config|
+        # we need to allow some rules first
+        config.allow %r{^/api/v1}
+        # matches `kthnxbye` request
+        config.deny(&:post?)
+      end
+
+      it 'allows not blacklisted request' do
+        expect {
+          echo_get
+        }.to change { ApiSampler::Sample.count }.by(1)
+      end
+
+      it 'denies the matched request' do
+        expect {
+          kthnxbye
+        }.not_to change { ApiSampler::Sample.count }
+      end
+    end
+  end
 end
