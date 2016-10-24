@@ -9,6 +9,14 @@ RSpec.describe ApiSampler::RequestMatcher do
     Rack::Request.new(Rack::MockRequest.env_for(*args, **kwargs))
   end
 
+  context 'when the rule has invalid type' do
+    let(:rule) { nil }
+
+    it do
+      expect { subject }.to raise_error(ArgumentError)
+    end
+  end
+
   describe '#matches?' do
     context 'with a Regexp rule' do
       let(:rule) { %r{^/api/v1} }
