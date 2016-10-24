@@ -44,7 +44,7 @@ module ApiSampler
       elsif rule.respond_to?(:call)
         rule
       else
-        raise ArgumentError, 'Expected a callable or an instance of Regexp'
+        raise ArgumentError, 'expected a callable or an instance of Regexp'
       end
     end
   end
