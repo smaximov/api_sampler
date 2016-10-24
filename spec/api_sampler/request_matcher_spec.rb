@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'byebug'
+require 'rails_helper'
 
 RSpec.describe ApiSampler::RequestMatcher do
   subject { described_class.new(rule) }
