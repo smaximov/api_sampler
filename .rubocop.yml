@@ -47,3 +47,7 @@ Style/HasAndBelongsToMany:
 Metrics/LineLength:
   AllowURI: true
   IgnoreCopDirectives: true
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
