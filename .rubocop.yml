@@ -40,9 +40,6 @@ Style/BlockDelimiters:
 Style/SpecialGlobalVars:
   EnforcedStyle: use_english_names
 
-Style/HasAndBelongsToMany:
-  Enabled: false
-
 # Metrics cops
 Metrics/LineLength:
   AllowURI: true
@@ -51,3 +48,7 @@ Metrics/LineLength:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
+
+# Rails-specific cops
+Rails/HasAndBelongsToMany:
+  Enabled: false
