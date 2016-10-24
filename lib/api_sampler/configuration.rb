@@ -13,7 +13,7 @@ module ApiSampler
     # @example Allog requests with query parameter "foo"
     #   ApiSampler.configure do |config|
     #     config.allow do |request|
-    #       request.GET.has_key?('foo')
+    #       request.GET.key?('foo')
     #     end
     #   end
     #
