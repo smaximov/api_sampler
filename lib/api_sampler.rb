@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require 'api_sampler/engine'
+require 'api_sampler/request_matcher'
 
 # Collect samples (request/response pairs) for API endpoints of your Rails app.
 module ApiSampler
