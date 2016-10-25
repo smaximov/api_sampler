@@ -2,11 +2,6 @@
 
 module ApiSampler
   # A class to hold the configuration of **api_sampler**.
-  #
-  # @example (see #allow)
-  # @example (see #deny)
-  # @example (see #samples_expire_in)
-  # @example (see #samples_quota)
   class Configuration
     # Allow requests matching the given rule.
     #
