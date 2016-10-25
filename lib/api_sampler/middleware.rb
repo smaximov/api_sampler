@@ -33,18 +33,32 @@ module ApiSampler
       Rails.logger.error "api_sampler :: collect_sample :: #{error}"
     end
 
-    # Check if the request is allowed.
+    # Check if the request's sample is to be stored.
     #
     # @param request [Rack::Request] the current request.
     # @return [Boolean]
     def allowed?(request)
-      return false unless ApiSampler.config.request_whitelist.any? do |matcher|
-        matcher.matches?(request)
-      end
+      whitelisted?(request) && !blacklisted?(request) && meets_quota?
+    end
 
-      ApiSampler.config.request_blacklist.none? do |matcher|
+    def whitelisted?(request)
+      ApiSampler.config.request_whitelist.any? do |matcher|
         matcher.matches?(request)
       end
+    end
+
+    def blacklisted?(request)
+      ApiSampler.config.request_blacklist.any? do |matcher|
+        matcher.matches?(request)
+      end
+    end
+
+    def meets_quota?
+      return true if ApiSampler.config.samples_quota_count.nil?
+
+      ApiSampler::Sample
+        .where('created_at >= ?', ApiSampler.config.samples_quota_duration.ago)
+        .count < ApiSampler.config.samples_quota_count
     end
 
     # Delete samples older than {Configuration#samples_expiration_duration}.

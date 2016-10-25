@@ -71,4 +71,33 @@ RSpec.describe 'Request filtering', type: :request, reset_config: true do
       end
     end
   end
+
+  context 'samples quota' do
+    configure do |config|
+      config.allow %r{^/api/v1}
+      config.samples_quota count: 2, per: 2.days
+    end
+
+    before do
+      FactoryGirl.create_list(:sample, 2, created_at: 1.day.ago)
+    end
+
+    context 'when exceeding the quota' do
+      it do
+        expect {
+          kthnxbye
+        }.not_to change { ApiSampler::Sample.count }
+      end
+    end
+
+    context 'when meeting the quota' do
+      it do
+        travel 2.days do
+          expect {
+            kthnxbye
+          }.to change { ApiSampler::Sample.count }.by(1)
+        end
+      end
+    end
+  end
 end
