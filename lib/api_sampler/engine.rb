@@ -7,9 +7,11 @@ module ApiSampler
   #
   # ## Usage
   #
-  # Add the following line to `config/routes.rb`:
+  # Add the following line to `config/routes.rb` to mount the engine:
   #
-  #     mount ApiSampler::Engine, at: '/api_sampler', as: :api_sampler
+  # ``` ruby
+  # mount ApiSampler::Engine, at: '/api_sampler'
+  # ```
   class Engine < ::Rails::Engine
     isolate_namespace ApiSampler
 
