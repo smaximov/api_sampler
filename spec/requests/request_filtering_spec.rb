@@ -2,14 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Request filtering', type: :request, reset_config: true do
-  def kthnxbye
-    post '/api/v1/kthnxbye'
-  end
-
-  def echo_get
-    get '/api/v1/echo_get?foo=bar'
-  end
-
   it 'rejects all requests by default' do
     expect {
       kthnxbye

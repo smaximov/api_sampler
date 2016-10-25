@@ -6,16 +6,6 @@ RSpec.describe 'Samples tagging', type: :request, reset_config: true do
     config.allow(/.*/)
   end
 
-  def kthnxbye
-    post '/api/v1/kthnxbye'
-  end
-
-  def samples_tags_count
-    sql = 'SELECT count(*) from api_sampler_samples_tags'
-    result = ActiveRecord::Base.connection.execute(sql)
-    result.first['count']
-  end
-
   context 'with a matching tagging rule' do
     configure do |config|
       config.tag_with('tag', &:post?)

@@ -14,16 +14,6 @@ RSpec.describe 'Samples expiration', type: :request, reset_config: true do
     config.samples_expire_in 1.day
   end
 
-  def samples_tags_count
-    sql = 'SELECT count(*) from api_sampler_samples_tags'
-    result = ActiveRecord::Base.connection.execute(sql)
-    result.first['count']
-  end
-
-  def kthnxbye
-    post '/api/v1/kthnxbye'
-  end
-
   it 'deletes expired samples' do
     expect {
       kthnxbye

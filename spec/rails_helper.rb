@@ -11,6 +11,7 @@ require 'rspec/rails'
 require 'factory_girl_rails'
 
 require 'support/configure_helper'
+require 'support/request_helper'
 require 'support/reset_config'
 require 'support/shoulda/matchers'
 
@@ -21,5 +22,6 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
   config.extend ConfigureHelper
+  config.include RequestHelper
   config.include ActiveSupport::Testing::TimeHelpers
 end
