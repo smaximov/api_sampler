@@ -4,7 +4,42 @@ require 'api_sampler/configuration'
 require 'api_sampler/request_matcher'
 
 # Collect samples (request/response pairs) for API endpoints of your Rails app.
-# @todo Write a proper description, excerpt from README should do.
+#
+# ## Installation
+#
+# Add this line to your application's Gemfile:
+#
+# ``` ruby
+# gem 'api_sampler'
+# ```
+#
+# And then execute:
+#
+# ``` bash
+# $ bundle install
+# ```
+#
+# Finally, you need to run the generator:
+#
+# ``` bash
+# $ rails generate api_sampler:install
+# ```
+#
+# This will create an initializer at `config/initializers/api_sampler.rb`, mount
+# {Engine} at `/api_sampler`, copy and run the engine's migrations.
+#
+# Run the following command to see the list of available options:
+#
+# ``` bash
+# $ rails generate api_sampler:install --help
+# ```
+#
+# ## Configuration.
+#
+# Edit the provided initializer at `config/initializers/api_sampler.rb`.
+#
+# See {Configuration} for the list of available configuration options with
+# the examples of their usage.
 module ApiSampler
   # Valid HTTP methods.
   HTTP_METHODS = %w(GET HEAD PUT POST DELETE OPTIONS PATCH LINK UNLINK).freeze

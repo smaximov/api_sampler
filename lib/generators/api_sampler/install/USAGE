@@ -1,0 +1,24 @@
+Description:
+    Create an initializer with description of configuration and defaults. Mount
+    api_sampler at MOUNT_PATH (specified with `--mount-at' option, defaults to
+    `/api_sampler'). Copy and run migrations unless `--no-migrate' flag is given.
+
+Example:
+    rails generate api_sampler:install
+
+    This will copy and run all migrations, mount ApiSampler::Engine at `/api_sampler',
+    and create an initializer at `config/initializers/api_sampler.rb'.
+
+Example:
+    rails generate api_sampler:install --mount-at /api/sampler
+
+    Same as the above, but mount ApiSampler::Engine at `/api/sampler' instead of the
+    default `/api_sampler'.
+
+Example:
+    rails generate api_sampler:install --mount-at /api/sampler --no-migrate
+
+    Same as the above, but don't copy and run migrations; this can be done later by
+    executing:
+        $ bundle exec rails api_sampler:install:migrations
+        $ bundle exec rails db:migrate SCOPE=api_sampler

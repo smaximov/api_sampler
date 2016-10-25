@@ -48,7 +48,7 @@ module ApiSampler
       request_whitelist << RequestMatcher.new(rule || block)
     end
 
-    # Deny requests matching the given rule.
+    # Define rules to deny requests previously matched by {#allow} rules.
     #
     # You can invoke this method multiple times to define a set of rules;
     # a request is considered denied as long as it matches any rule from
@@ -59,7 +59,7 @@ module ApiSampler
     #     config.deny(&:post?)
     #   end
     #
-    # @example Allow all requests to "/api/v1/*" endpoints except PUT requests.
+    # @example Allow all requests to "/api/v1/*" endpoints except PUT requests
     #   ApiSampler.configure do |config|
     #     config.allow %r{^/api/v1/}
     #     config.deny(&:put?)

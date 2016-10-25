@@ -20,15 +20,27 @@ And then execute:
 $ bundle install
 ```
 
-Next, you need to run the generator:
+Finally, you need to run the generator:
 
 ``` bash
 $ rails generate api_sampler:install
 ```
 
-## Usage
+This will create an initializer at `config/initializers/api_sampler.rb`, mount
+**api_sampler** at `/api_sampler` and copy and run the engine's migrations.
 
-How to use my plugin.
+Run the following command to see the list of available options:
+
+``` bash
+$ rails generate api_sampler:install --help
+```
+
+## Configuration
+
+Configuration should be placed in an initializer (`api_sampler:install` creates
+a sample initializer at `config/initializers/api_sampler.rb`).
+
+TODO.
 
 ## Contributing
 
