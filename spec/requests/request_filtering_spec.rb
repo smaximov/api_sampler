@@ -2,8 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Request filtering', type: :request, reset_config: true do
-  subject { ApiSampler::Sample.last }
-
   def kthnxbye
     post '/api/v1/kthnxbye'
   end
