@@ -40,7 +40,7 @@ $ rails generate api_sampler:install --help
 Configuration should be placed in an initializer (`api_sampler:install` creates
 a sample initializer at `config/initializers/api_sampler.rb`).
 
-TODO.
+TODO. See [ApiSampler::Configuration](http://www.rubydoc.info/github/smaximov/api_sampler/master/ApiSampler/Configuration) for examples of confiration options usage.
 
 ## Contributing
 
