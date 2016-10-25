@@ -68,7 +68,7 @@ module ApiSampler
       return if ApiSampler.config.samples_expiration_duration.nil?
 
       expiration_bound = ApiSampler.config.samples_expiration_duration.ago
-      ApiSampler::Sample.destroy_all(['created_at < ?', expiration_bound])
+      ApiSampler::Sample.where('created_at < ?', expiration_bound).destroy_all
     end
   end
 end
