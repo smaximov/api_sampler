@@ -9,6 +9,8 @@ module ApiSampler
     end
 
     def call(env)
+      delete_expired_samples
+
       request = Rack::Request.new(env)
       status, headers, response = @app.call(env)
       collect_sample(request, response) if allowed?(request)
@@ -43,6 +45,16 @@ module ApiSampler
       ApiSampler.config.request_blacklist.none? do |matcher|
         matcher.matches?(request)
       end
+    end
+
+    # Delete samples older than {Configuration#samples_expiration_duration}.
+    #
+    # @return [void]
+    def delete_expired_samples
+      return if ApiSampler.config.samples_expiration_duration.nil?
+
+      expiration_bound = ApiSampler.config.samples_expiration_duration.ago
+      ApiSampler::Sample.destroy_all(['created_at < ?', expiration_bound])
     end
   end
 end

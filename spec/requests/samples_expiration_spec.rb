@@ -1,0 +1,31 @@
+# frozen_string_literal: true
+require 'rails_helper'
+
+RSpec.describe 'Samples expiration', type: :request, reset_config: true do
+  before do
+    # These samples are kept
+    FactoryGirl.create_list(:sample, 2, created_at: 12.hours.ago)
+    # This sample should be destroyed
+    FactoryGirl.create(:sample, created_at: 2.days.ago)
+  end
+
+  def samples_tags_count
+    sql = 'SELECT count(*) from api_sampler_samples_tags'
+    result = ActiveRecord::Base.connection.execute(sql)
+    result.first['count']
+  end
+
+  configure do |config|
+    config.samples_expire_in 1.day
+  end
+
+  def kthnxbye
+    post '/api/v1/kthnxbye'
+  end
+
+  it 'deletes expired samples' do
+    expect {
+      kthnxbye
+    }.to change { ApiSampler::Sample.count }.from(3).to(2)
+  end
+end
