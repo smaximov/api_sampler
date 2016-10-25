@@ -121,4 +121,46 @@ RSpec.describe ApiSampler::Configuration do
       end
     end
   end
+
+  describe '#tag_with' do
+    context 'when both rule and block are absent' do
+      it do
+        expect {
+          subject.tag_with('tag')
+        }.to raise_error(ArgumentError, /rule or block should be specified/)
+      end
+    end
+
+    context 'when both rule and block are specified' do
+      it do
+        expect {
+          subject.tag_with('tag', /foo/) { |_request| true }
+        }.to raise_error(ArgumentError, /rule or block should be specified/)
+      end
+    end
+
+    context 'when provided with a blank tag' do
+      it do
+        expect {
+          subject.tag_with([], /foo/)
+        }.to raise_error(ArgumentError, /blank/)
+      end
+    end
+
+    context 'when only rule is specified' do
+      it do
+        expect {
+          subject.tag_with(:foo, /foo/)
+        }.not_to raise_error
+      end
+    end
+
+    context 'when only block is given' do
+      it do
+        expect {
+          subject.tag_with(:foo) { |_request| true }
+        }.not_to raise_error
+      end
+    end
+  end
 end

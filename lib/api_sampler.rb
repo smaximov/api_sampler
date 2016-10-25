@@ -2,6 +2,7 @@
 require 'api_sampler/engine'
 require 'api_sampler/configuration'
 require 'api_sampler/request_matcher'
+require 'api_sampler/request_tag'
 
 # Collect samples (request/response pairs) for API endpoints of your Rails app.
 #

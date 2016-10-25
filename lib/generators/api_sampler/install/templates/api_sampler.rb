@@ -41,4 +41,9 @@ ApiSampler.configure do |config|
   #
   # Collect at most 100 samples per day:
   #     config.samples_quota count: 100, per: 1.day
+
+  # Tag matched requests with the specified labels.
+  #
+  # Tag slow requests with the tag 'slow':
+  #     config.tag_with(:slow) { |request| request.time > 200 }
 end

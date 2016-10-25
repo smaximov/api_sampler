@@ -161,5 +161,45 @@ module ApiSampler
     #   the duration during which at most {samples_quota_count} samples can be
     #   collected.
     attr_reader :samples_quota_duration
+
+    # Tag matched requests with the specified labels.
+    #
+    # @example Tag slow requests with the tag 'slow':
+    #   ApiSampler.configure do |config|
+    #     config.tag_with(:slow) { |request| request.time > 200 }
+    #   end
+    #
+    # @return [void]
+    # @raise [ArgumentError] if arguments are invalid.
+    #
+    # @overload tag_with(tag, rule)
+    #   @param tag [#to_s]
+    #     a non-blank label which should tag matching requests.
+    #   @param (see ApiSampler::RequestMatcher#initialize)
+    # @overload tag_with(tag)
+    #   @param tag [#to_s]
+    #     a non-blank label which should tag matching requests.
+    #
+    #   @yield [request]
+    #     block which takes the request and returns whether that request
+    #     matches.
+    #   @yieldparam request [Rack::Request] the current request.
+    #   @yieldreturn [Boolean]
+    #
+    # @note rules defined here may be overriden by the rules defined in
+    #   {#deny}.
+    def tag_with(tag, rule = nil, &block)
+      raise ArgumentError, 'either rule or block should be specified' if
+        (rule.nil? && block.nil?) || (rule.present? && block.present?)
+
+      request_tags << RequestTag.new(tag, RequestMatcher.new(rule || block))
+    end
+
+    # @!attribute [r] request_tags
+    # @return [Array<RequestMatcher>]
+    #   the set of pairs (tag, rule).
+    def request_tags
+      @request_tags ||= []
+    end
   end
 end
