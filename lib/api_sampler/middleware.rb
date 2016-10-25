@@ -25,10 +25,11 @@ module ApiSampler
     # @param response [ActiveDispatch::Response::RackBody] response body.
     def collect_sample(request, response)
       endpoint = ApiSampler::Endpoint.find_or_create_by!(path: request.path)
-      endpoint.samples.create!(request_method: request.request_method,
-                               query: request.query_string,
-                               request_body: request.body.read,
-                               response_body: response.body)
+      sample = endpoint.samples.create!(request_method: request.request_method,
+                                        query: request.query_string,
+                                        request_body: request.body.read,
+                                        response_body: response.body)
+      tag(sample, request)
     rescue ActiveRecord::RecordInvalid => error
       Rails.logger.error "api_sampler :: collect_sample :: #{error}"
     end
@@ -69,6 +70,24 @@ module ApiSampler
 
       expiration_bound = ApiSampler.config.samples_expiration_duration.ago
       ApiSampler::Sample.where('created_at < ?', expiration_bound).destroy_all
+    end
+
+    # Tag the sample according to the rules in {Configuration#request_tags}.
+    #
+    # @param sample [ApiSampler::Sample]
+    # @param request [Rack::Request]
+    #
+    # @return [void]
+    #
+    # @raise [ActiveRecord::RecordInvalid]
+    def tag(sample, request)
+      tags = ApiSampler.config.request_tags.each_with_object(Set.new) do |t, s|
+        s << t.name if t.matcher.matches?(request)
+      end
+
+      tags.each do |tag|
+        sample.tags << ApiSampler::Tag.find_or_create_by!(name: tag)
+      end
     end
   end
 end
