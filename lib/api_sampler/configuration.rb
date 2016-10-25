@@ -86,6 +86,7 @@ module ApiSampler
       request_blacklist << RequestMatcher.new(rule || block)
     end
 
+    # @!attribute [r] request_whitelist
     # @return [Array<RequestMatcher>]
     #   the set of rules to determine allowed requests.
     #
@@ -94,6 +95,7 @@ module ApiSampler
       @request_whitelist ||= []
     end
 
+    # @!attribute [r] request_blacklist
     # @return [Array<RequestMatcher>]
     #   the set of rules to determine denied requests.
     #

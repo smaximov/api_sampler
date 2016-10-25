@@ -44,6 +44,7 @@ module ApiSampler
   # Valid HTTP methods.
   HTTP_METHODS = %w(GET HEAD PUT POST DELETE OPTIONS PATCH LINK UNLINK).freeze
 
+  # @!attribute [rw] config
   # @return [Configuration] the configuration of **api_sampler**.
   # @!scope module
   mattr_accessor :config, instance_accessor: false do
