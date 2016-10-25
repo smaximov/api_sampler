@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :endpoint, class: 'ApiSampler::Endpoint' do
-    path { |n| "/api/v1/endpoint#{n}" }
+    sequence(:path) { |n| "/api/v1/endpoint_#{n}" }
   end
 end
