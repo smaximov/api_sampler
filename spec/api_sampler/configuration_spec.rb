@@ -95,4 +95,30 @@ RSpec.describe ApiSampler::Configuration do
       end
     end
   end
+
+  describe '#limit_samples' do
+    context 'when provided with a non-Integer count' do
+      it do
+        expect {
+          subject.limit_samples count: '10', per: 1.day
+        }.to raise_error(ArgumentError, /Integer/)
+      end
+    end
+
+    context 'when provided with a non-Integer duration' do
+      it do
+        expect {
+          subject.limit_samples count: 10, per: 1
+        }.to raise_error(ArgumentError, /ActiveSupport::Duration/)
+      end
+    end
+
+    context 'when provided with arguments of valid types' do
+      it do
+        expect {
+          subject.limit_samples count: 10, per: 1.day
+        }.not_to raise_error
+      end
+    end
+  end
 end

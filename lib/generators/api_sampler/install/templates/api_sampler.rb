@@ -34,6 +34,11 @@ ApiSampler.configure do |config|
   #
   # Samples are stored indefinetely by default.
   #
-  # Store collected samples for one day
+  # Store collected samples for one day:
   #     config.samples_expire_in 1.day
+
+  # Set maxumum number of samples collected per time interval.
+  #
+  # Collect at most 100 samples per day:
+  #     config.limit_samples count: 100, per: 1.day
 end

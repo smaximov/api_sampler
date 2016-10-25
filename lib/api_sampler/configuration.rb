@@ -131,5 +131,39 @@ module ApiSampler
     # @return [ActiveSupport::Duration, nil]
     #   the duration during which collected samples should be stored.
     attr_reader :samples_expiration_duration
+
+    # Set maxumum number of samples collected per time inteval.
+    #
+    # @example Collect at most 100 samples per day
+    #   AppSampler.configure do |config|
+    #     config.limit_samples count: 100, per: 1.day
+    #   end
+    #
+    # @param count [Integer]
+    #   the maximum number of collected samples per specified duration.
+    # @param per [ActiveSupport::Duration]
+    #   the duration during which at most `count` samples can be collected.
+    #
+    # @return [void]
+    #
+    # @raise [ArgumentError] if provided arguments of invalid types.
+    def limit_samples(count:, per:)
+      raise ArgumentError, "`count' must be an Integer" unless
+        count.is_a?(Integer)
+      raise ArgumentError, "`per' must be an ActiveSupport::Duration" unless
+        per.is_a?(ActiveSupport::Duration)
+
+      @samples_limit_count = count
+      @samples_limit_duration = per
+    end
+
+    # @return [Integer, nil]
+    #   the maximum number of collected samples per {samples_limit_duration}.
+    attr_reader :samples_limit_count
+
+    # @return [ActiveSupport::Duration, nil]
+    #   the duration during which at most {samples_limit_count} samples can be
+    #   collected.
+    attr_reader :samples_limit_duration
   end
 end
