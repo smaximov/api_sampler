@@ -5,6 +5,7 @@ module ApiSampler
   #
   # @example (see #allow)
   # @example (see #deny)
+  # @example (see #samples_expire_in)
   class Configuration
     # Allow requests matching the given rule.
     #
