@@ -6,6 +6,6 @@ spec/dummy/db/*.sqlite3-journal
 spec/dummy/log/*.log
 spec/dummy/tmp/
 .yardoc/
-.ruby-verion
-.ruby-gemspec
+.ruby-version
+.ruby-gemset
 /.byebug_history
