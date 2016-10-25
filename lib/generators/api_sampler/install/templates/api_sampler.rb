@@ -40,5 +40,5 @@ ApiSampler.configure do |config|
   # Set maxumum number of samples collected per time interval.
   #
   # Collect at most 100 samples per day:
-  #     config.limit_samples count: 100, per: 1.day
+  #     config.samples_quota count: 100, per: 1.day
 end
