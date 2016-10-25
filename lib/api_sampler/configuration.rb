@@ -104,5 +104,32 @@ module ApiSampler
     def request_blacklist
       @request_blacklist ||= []
     end
+
+    # Set the duration during which collected samples should be stored.
+    #
+    # @note Samples are stored indefinetely by default.
+    #
+    # @example Store collected samples for one day
+    #   AppSampler.configure do |config|
+    #     config.samples_expire_in 1.day
+    #   end
+    #
+    # @param duration [ActiveSupport::Duration, nil]
+    #   the duration specifying the lifetime of collected samples. Passing `nil`
+    #   means storing collected samples indefinetely.
+    #
+    # @return [void]
+    #
+    # @raise [ArgumentError] if `duration` has invalid type.
+    def samples_expire_in(duration)
+      raise ArgumentError, 'expected ActiveSupport::Duration or nil' unless
+        duration.nil? || duration.is_a?(ActiveSupport::Duration)
+
+      @samples_expiration_duration = duration
+    end
+
+    # @return [ActiveSupport::Duration, nil]
+    #   the duration during which collected samples should be stored.
+    attr_reader :samples_expiration_duration
   end
 end

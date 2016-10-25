@@ -29,4 +29,11 @@ ApiSampler.configure do |config|
   # Allow all requests to "/api/v1/*" endpoints except PUT requests:
   #     config.allow %r{^/api/v1/}
   #     config.deny(&:put?)
+
+  # Set the duration during which collected samples should be stored.
+  #
+  # Samples are stored indefinetely by default.
+  #
+  # Store collected samples for one day
+  #     config.samples_expire_in 1.day
 end
