@@ -9,3 +9,4 @@ spec/dummy/tmp/
 .ruby-version
 .ruby-gemset
 /.byebug_history
+.tern-port
