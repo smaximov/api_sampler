@@ -55,8 +55,10 @@ Contribution directions go here.
 First, you need to create a database role corresponding to your user (if it doesn't exist yet):
 
 ``` bash
-$ sudo -u postgres createuser $USER --login --createdb
+$ sudo -u postgres createuser $USER --login --createdb --superuser
 ```
+
+**Note**: superuser permissions are required to enable the "hstore" database extension.
 
 Alternatively, you may specify the database role and password using environment variables
 `API_SAMPLER_DB_USERNAME` and `API_SAMPLER_DB_PASSWORD`.
