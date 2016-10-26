@@ -1,0 +1,9 @@
+<table>
+  <% @endpoints.each do |endpoint| %>
+    <tr>
+      <td><%= endpoint.request_method %></td>
+      <td><%= endpoint.path %></td>
+      <td><%= endpoint.samples_count %></td>
+    </tr>
+  <% end %>
+</table>
