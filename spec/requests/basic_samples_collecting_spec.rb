@@ -13,16 +13,17 @@ RSpec.describe 'Basic samples collecting', type: :request, reset_config: true do
   end
 
   def perform_request
-    post '/api/v1/kthnxbye?foo=bar', params: { bar: :baz }
+    post '/api/v1/kthnxbye/42?foo=bar', params: { bar: :baz }
   end
 
   it 'creates a new ApiSampler::Sample' do
     expect { perform_request }.to change { ApiSampler::Sample.count }.by(1)
-    expect(subject.endpoint.path).to eq('/api/v1/kthnxbye(.:format)')
+    expect(subject.endpoint.path).to eq('/api/v1/kthnxbye(/:param)(.:format)')
     expect(response_body).to eq(reply: 'kthnxbye')
     expect(subject.endpoint.request_method).to eq('POST')
     expect(subject.query).to eq('foo=bar')
     expect(subject.request_body).to eq('bar=baz')
+    expect(subject.path_params).to include('param' => '42')
   end
 
   context 'first request to the endpoint' do

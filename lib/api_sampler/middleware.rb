@@ -16,7 +16,8 @@ module ApiSampler
       request = Rack::Request.new(env)
 
       @route_resolver.resolve(request) do |route|
-        collect_sample(route, request, response) if allowed?(request)
+        sample = collect_sample(route, request, response) if allowed?(request)
+        tag(sample, request)
       end
 
       [status, headers, response]
@@ -30,16 +31,18 @@ module ApiSampler
     #   the route corresponding to the current request.
     # @param request [Rack::Request] the current request.
     # @param response [ActiveDispatch::Response::RackBody] the response body.
+    #
+    # @return [Sample] the created sample.
     def collect_sample(route, request, response)
       delete_expired_samples
 
       endpoint = ApiSampler::Endpoint
                  .find_or_create_by!(path: route.pattern,
                                      request_method: request.request_method)
-      sample = endpoint.samples.create!(query: request.query_string,
-                                        request_body: request.body.read,
-                                        response_body: response.body)
-      tag(sample, request)
+      endpoint.samples.create!(query: request.query_string,
+                               request_body: request.body.read,
+                               path_params: route.parameters,
+                               response_body: response.body)
     rescue ActiveRecord::RecordInvalid => error
       Rails.logger.error "api_sampler :: collect_sample :: #{error}"
     end

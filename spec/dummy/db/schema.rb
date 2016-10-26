@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161026094729) do
+ActiveRecord::Schema.define(version: 20161026095738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20161026094729) do
     t.text     "response_body", null: false
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.hstore   "path_params",   null: false
     t.index ["endpoint_id"], name: "index_api_sampler_samples_on_endpoint_id", using: :btree
   end
 

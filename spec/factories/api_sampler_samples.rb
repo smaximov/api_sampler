@@ -5,5 +5,6 @@ FactoryGirl.define do
     query 'foo=bar'
     request_body 'request body'
     response_body 'response body'
+    path_params { Hash.new }
   end
 end

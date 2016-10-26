@@ -58,3 +58,6 @@ Rails/HasAndBelongsToMany:
 
 Rails/HttpPositionalArguments:
   Enabled: false
+
+Rails/NotNullColumn:
+  Enabled: false
