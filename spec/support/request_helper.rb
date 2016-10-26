@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 module RequestHelper
+  def mock_request(*args, **kwargs)
+    Rack::Request.new(Rack::MockRequest.env_for(*args, **kwargs))
+  end
+
   def kthnxbye
     post '/api/v1/kthnxbye'
   end

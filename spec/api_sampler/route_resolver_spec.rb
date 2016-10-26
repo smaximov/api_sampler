@@ -16,10 +16,6 @@ RSpec.describe ApiSampler::RouteResolver do
     end
   end
 
-  def mock_request(*args, **kwargs)
-    Rack::Request.new(Rack::MockRequest.env_for(*args, **kwargs))
-  end
-
   describe '#resolve' do
     context "when request doesn't match any route" do
       let(:request) { mock_request('/no/match') }

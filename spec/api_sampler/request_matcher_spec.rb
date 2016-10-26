@@ -5,10 +5,6 @@ require 'rails_helper'
 RSpec.describe ApiSampler::RequestMatcher do
   subject { described_class.new(rule) }
 
-  def request(*args, **kwargs)
-    Rack::Request.new(Rack::MockRequest.env_for(*args, **kwargs))
-  end
-
   context 'when the rule has invalid type' do
     let(:rule) { nil }
 
@@ -23,13 +19,13 @@ RSpec.describe ApiSampler::RequestMatcher do
 
       context 'when the regexp matches the request path' do
         it do
-          is_expected.to be_matches(request('http://foo.bar/api/v1/kittens'))
+          is_expected.to be_matches(mock_request('http://foo.bar/api/v1/kittens'))
         end
       end
 
       context "when the regexp doesn't match the request path" do
         it do
-          is_expected.not_to be_matches(request('http://example.com/some/url'))
+          is_expected.not_to be_matches(mock_request('http://example.com/some/url'))
         end
       end
     end
@@ -39,13 +35,14 @@ RSpec.describe ApiSampler::RequestMatcher do
 
       context 'when the callable returns true' do
         it do
-          is_expected.to be_matches(request('http://foo.bar', input: 'input'))
+          is_expected.to be_matches(mock_request('http://foo.bar',
+                                                 input: 'input'))
         end
       end
 
       context 'when the callable returns false' do
         it do
-          is_expected.not_to be_matches(request('http://foo.bar'))
+          is_expected.not_to be_matches(mock_request('http://foo.bar'))
         end
       end
     end
