@@ -9,8 +9,6 @@ module ApiSampler
     end
 
     def call(env)
-      delete_expired_samples
-
       request = Rack::Request.new(env)
       status, headers, response = @app.call(env)
       collect_sample(request, response) if allowed?(request)
@@ -24,6 +22,8 @@ module ApiSampler
     # @param request [Rack::Request] current request.
     # @param response [ActiveDispatch::Response::RackBody] response body.
     def collect_sample(request, response)
+      delete_expired_samples
+
       endpoint = ApiSampler::Endpoint.find_or_create_by!(path: request.path)
       sample = endpoint.samples.create!(request_method: request.request_method,
                                         query: request.query_string,
