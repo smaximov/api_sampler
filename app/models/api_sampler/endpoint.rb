@@ -4,6 +4,8 @@ module ApiSampler
     has_many :samples
 
     validates :path, presence: true
-    validates :path, uniqueness: true
+    validates :path, uniqueness: { scope: :request_method }
+    validates :request_method, presence: true
+    validates :request_method, inclusion: ApiSampler::HTTP_METHODS
   end
 end

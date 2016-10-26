@@ -20,7 +20,7 @@ RSpec.describe 'Basic samples collecting', type: :request, reset_config: true do
     expect { perform_request }.to change { ApiSampler::Sample.count }.by(1)
     expect(subject.endpoint.path).to eq('/api/v1/kthnxbye(.:format)')
     expect(response_body).to eq(reply: 'kthnxbye')
-    expect(subject.request_method).to eq('POST')
+    expect(subject.endpoint.request_method).to eq('POST')
     expect(subject.query).to eq('foo=bar')
     expect(subject.request_body).to eq('bar=baz')
   end

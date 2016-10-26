@@ -33,9 +33,10 @@ module ApiSampler
     def collect_sample(route, request, response)
       delete_expired_samples
 
-      endpoint = ApiSampler::Endpoint.find_or_create_by!(path: route.pattern)
-      sample = endpoint.samples.create!(request_method: request.request_method,
-                                        query: request.query_string,
+      endpoint = ApiSampler::Endpoint
+                 .find_or_create_by!(path: route.pattern,
+                                     request_method: request.request_method)
+      sample = endpoint.samples.create!(query: request.query_string,
                                         request_body: request.body.read,
                                         response_body: response.body)
       tag(sample, request)

@@ -10,28 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161025065815) do
+ActiveRecord::Schema.define(version: 20161026091502) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "api_sampler_endpoints", force: :cascade do |t|
-    t.text     "path",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["path"], name: "index_api_sampler_endpoints_on_path", unique: true, using: :btree
+    t.text     "path",           null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.text     "request_method", null: false
+    t.index ["path"], name: "index_api_sampler_endpoints_on_path", using: :btree
+    t.index ["request_method", "path"], name: "index_api_sampler_endpoints_on_request_method_and_path", unique: true, using: :btree
   end
 
   create_table "api_sampler_samples", force: :cascade do |t|
-    t.integer  "endpoint_id",    null: false
-    t.text     "request_method", null: false
-    t.text     "query",          null: false
-    t.text     "request_body",   null: false
-    t.text     "response_body",  null: false
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.integer  "endpoint_id",   null: false
+    t.text     "query",         null: false
+    t.text     "request_body",  null: false
+    t.text     "response_body", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.index ["endpoint_id"], name: "index_api_sampler_samples_on_endpoint_id", using: :btree
-    t.index ["request_method"], name: "index_api_sampler_samples_on_request_method", using: :btree
   end
 
   create_table "api_sampler_samples_tags", id: false, force: :cascade do |t|
