@@ -8,12 +8,17 @@ module ApiSampler
   class Middleware
     def initialize(app)
       @app = app
+      @route_resolver = RouteResolver.new(Rails.application.routes.router)
     end
 
     def call(env)
-      request = Rack::Request.new(env)
       status, headers, response = @app.call(env)
-      collect_sample(request, response) if allowed?(request)
+      request = Rack::Request.new(env)
+
+      @route_resolver.resolve(request) do |route|
+        collect_sample(route, request, response) if allowed?(request)
+      end
+
       [status, headers, response]
     end
 
@@ -21,12 +26,14 @@ module ApiSampler
 
     # Collects a sample of the current request.
     #
-    # @param request [Rack::Request] current request.
-    # @param response [ActiveDispatch::Response::RackBody] response body.
-    def collect_sample(request, response)
+    # @param route [MatchedRoute]
+    #   the route corresponding to the current request.
+    # @param request [Rack::Request] the current request.
+    # @param response [ActiveDispatch::Response::RackBody] the response body.
+    def collect_sample(route, request, response)
       delete_expired_samples
 
-      endpoint = ApiSampler::Endpoint.find_or_create_by!(path: request.path)
+      endpoint = ApiSampler::Endpoint.find_or_create_by!(path: route.pattern)
       sample = endpoint.samples.create!(request_method: request.request_method,
                                         query: request.query_string,
                                         request_body: request.body.read,

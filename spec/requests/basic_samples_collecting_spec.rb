@@ -9,7 +9,7 @@ RSpec.describe 'Basic samples collecting', type: :request, reset_config: true do
   end
 
   configure do |config|
-    config.allow %r{^/api/v1/kthnxbye}
+    config.allow %r{^/api/v1/}
   end
 
   def perform_request
@@ -18,7 +18,7 @@ RSpec.describe 'Basic samples collecting', type: :request, reset_config: true do
 
   it 'creates a new ApiSampler::Sample' do
     expect { perform_request }.to change { ApiSampler::Sample.count }.by(1)
-    expect(subject.endpoint.path).to eq('/api/v1/kthnxbye')
+    expect(subject.endpoint.path).to eq('/api/v1/kthnxbye(.:format)')
     expect(response_body).to eq(reply: 'kthnxbye')
     expect(subject.request_method).to eq('POST')
     expect(subject.query).to eq('foo=bar')
