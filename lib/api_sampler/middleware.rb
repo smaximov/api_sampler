@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'api_sampler/route_resolver'
+
 module ApiSampler
   # This class provides rack-compatible middleware to collect and tag API
   # endpoint samples.
