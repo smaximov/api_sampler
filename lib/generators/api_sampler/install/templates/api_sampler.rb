@@ -46,4 +46,14 @@ ApiSampler.configure do |config|
   #
   # Tag slow requests with the tag 'slow':
   #     config.tag_with(:slow) { |request| request.time > 200 }
+
+  # List of keys to exclude from the path parameters of the request.
+  # Following parameters are excluded by default:
+  #     <%= ApiSampler::Configuration::PATH_PARAMS_BLACKLIST %>
+  #
+  # Exclude :id from path parameters:
+  #     config.path_params_blacklist = %i(id)
+  #
+  # Don't exclude any parameters from path parameters:
+  #     config.path_params_blacklist = nil
 end

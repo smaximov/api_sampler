@@ -3,6 +3,14 @@
 module ApiSampler
   # A class to hold the configuration of **api_sampler**.
   class Configuration
+    # Default keys to exclude from the path parameters of the
+    # request.
+    PATH_PARAMS_BLACKLIST = [:action, :controller].freeze # rubocop:disable Style/SymbolArray
+
+    def initialize
+      @path_parameters_blacklist = PATH_PARAMS_BLACKLIST.dup
+    end
+
     # Allow requests matching the given rule.
     #
     # You can invoke this method multiple times to define a set of rules;
@@ -200,6 +208,28 @@ module ApiSampler
     #   the set of pairs (tag, rule).
     def request_tags
       @request_tags ||= []
+    end
+
+    # List of keys to exclude from the path parameters of the request.
+    # Keys from {PATH_PARAMS_BLACKLIST} are excluded by default.
+    #
+    # @example Exclude :id from path parameters
+    #   AppSampler.configure do |config|
+    #     config.path_params_blacklist = %i(id)
+    #   end
+    #
+    # @example Don't exclude any parameters from path parameters
+    #   AppSampler.configure do |config|
+    #     config.path_params_blacklist = nil
+    #   end
+    #
+    # @see PATH_PARAMS_BLACKLIST
+    #
+    # @return [<Symbol>, nil]
+    attr_reader :path_params_blacklist
+
+    def path_params_blacklist=(blacklisted_params)
+      @path_params_blacklist = Array(blacklisted_params)
     end
   end
 end

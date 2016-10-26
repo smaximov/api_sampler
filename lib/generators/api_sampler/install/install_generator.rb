@@ -23,7 +23,7 @@ module ApiSampler
     # Create an initializer with description of configuration and defaults.
     # @return [void]
     def create_initializer
-      copy_file 'api_sampler.rb', 'config/initializers/api_sampler.rb'
+      template 'api_sampler.rb', 'config/initializers/api_sampler.rb'
     end
 
     # Mount {Engine} to `--mount-at`.

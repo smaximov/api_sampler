@@ -163,4 +163,14 @@ RSpec.describe ApiSampler::Configuration do
       end
     end
   end
+
+  describe '#path_params_blacklist=' do
+    context 'when setting to nil' do
+      before { subject.path_params_blacklist = nil }
+
+      it 'it sets #path_params_blacklist to an empty list' do
+        expect(subject.path_params_blacklist).to eq([])
+      end
+    end
+  end
 end
