@@ -5,7 +5,7 @@ module ApiSampler
   RSpec.describe Sample, type: :model do
     subject { FactoryGirl.build(:sample) }
 
-    it { is_expected.to belong_to(:endpoint) }
+    it { is_expected.to belong_to(:endpoint).touch(true) }
     it { is_expected.to have_and_belong_to_many(:tags) }
 
     it { is_expected.to validate_presence_of(:endpoint_id) }
