@@ -8,7 +8,7 @@ module ApiSampler
     PATH_PARAMS_BLACKLIST = [:action, :controller].freeze # rubocop:disable Style/SymbolArray
 
     def initialize
-      @path_parameters_blacklist = PATH_PARAMS_BLACKLIST.dup
+      @path_params_blacklist = PATH_PARAMS_BLACKLIST.dup
     end
 
     # Allow requests matching the given rule.

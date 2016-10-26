@@ -2,8 +2,8 @@
 
 RSpec.configure do |config|
   config.around(:example, reset_config: true) do |example|
+    conf, ApiSampler.config = ApiSampler.config, ApiSampler::Configuration.new
     begin
-      conf, ApiSampler.config = ApiSampler.config, ApiSampler::Configuration.new
       example.run
     ensure
       ApiSampler.config = conf
