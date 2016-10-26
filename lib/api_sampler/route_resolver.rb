@@ -30,10 +30,17 @@ module ApiSampler
 
     def find_route(request)
       @router.recognize(request) do |route, parameters|
+        remove_blacklisted_parameters(parameters)
         return MatchedRoute.new(route, parameters)
       end
 
       nil
+    end
+
+    def remove_blacklisted_parameters(parameters)
+      ApiSampler.config.path_params_blacklist.each do |param|
+        parameters.delete(param)
+      end
     end
   end
 end

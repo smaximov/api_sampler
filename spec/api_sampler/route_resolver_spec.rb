@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe ApiSampler::RouteResolver do
+RSpec.describe ApiSampler::RouteResolver, reset_config: true do
   include RSpec::Rails::ControllerExampleGroup
 
   let(:route_resolver) { described_class.new(routes.router) }
@@ -48,6 +48,37 @@ RSpec.describe ApiSampler::RouteResolver do
       it 'contains path parameters' do
         route = route_resolver.resolve(request)
         expect(route.parameters).to include(id: '1')
+      end
+
+      context 'path parameters blacklisting' do
+        context 'with the default blacklist' do
+          it "doesn't include :action and :controller" do
+            route = route_resolver.resolve(request)
+            expect(route.parameters).not_to include(:action, :controller)
+          end
+        end
+
+        context 'with the empty blacklist' do
+          configure do |config|
+            config.path_params_blacklist = nil
+          end
+
+          it 'includes :action and :controller' do
+            route = route_resolver.resolve(request)
+            expect(route.parameters).to include(:action, :controller)
+          end
+        end
+
+        context 'with a custom blacklist' do
+          configure do |config|
+            config.path_params_blacklist = :id
+          end
+
+          it "doesn't include blacklisted parameters" do
+            route = route_resolver.resolve(request)
+            expect(route.parameters).not_to include(:id)
+          end
+        end
       end
     end
   end
