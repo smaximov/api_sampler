@@ -8,6 +8,7 @@ spec/dummy/tmp/
 .yardoc/
 .ruby-version
 .ruby-gemset
-/.byebug_history
+.byebug_history
 .tern-port
 /Gemfile.lock
+/spec/dummy/public/assets/
