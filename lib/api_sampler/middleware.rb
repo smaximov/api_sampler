@@ -8,14 +8,13 @@ module ApiSampler
   class Middleware
     def initialize(app)
       @app = app
-      @route_resolver = RouteResolver.new(Rails.application.routes.router)
     end
 
     def call(env)
       status, headers, response = @app.call(env)
-      request = Rack::Request.new(env)
+      request = ActionDispatch::Request.new(env)
 
-      @route_resolver.resolve(request) do |route|
+      resolve_route(request) do |route|
         sample = collect_sample(route, request, response) if allowed?(request)
         tag(sample, request)
       end
@@ -101,6 +100,11 @@ module ApiSampler
       tags.each do |tag|
         sample.tags << ApiSampler::Tag.find_or_create_by!(name: tag)
       end
+    end
+
+    # Find a matching route, if any.
+    def resolve_route(request, &block)
+      RouteResolver.new(request).resolve(&block)
     end
   end
 end

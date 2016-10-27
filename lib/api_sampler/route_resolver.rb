@@ -5,11 +5,22 @@ require 'api_sampler/matched_route'
 module ApiSampler
   # Finds a matching route for the request, if any.
   class RouteResolver
-    def initialize(router)
-      @router = router
+    # @param request [ActionDispatch::Request, Rack::Request]
+    #   the current request.
+    #
+    #   If `request` has other type than {ActionDispatch::Request},
+    #   you must additionaly specify a router.
+    # @param router [ActionDispatch::Journey::Router]
+    #   an optional router.
+    #
+    #   You can omit this parameter if `request` has type
+    #   {ActionDispatch::Request}.
+    def initialize(request, router: nil)
+      @request = request
+      @router = router || request.routes.router
     end
 
-    # Find a route matching `request`, if any.
+    # Find a route matching the request, if any.
     #
     # If a block is given and the matching route is found,
     # yields the matched route.
@@ -20,16 +31,16 @@ module ApiSampler
     #
     # @return [MatchedRoute, nil]
     #   the route matching `request`, if any.
-    def resolve(request)
-      route = find_route(request)
+    def resolve
+      route = find_route
       yield route if route.present? && block_given?
       route
     end
 
     private
 
-    def find_route(request)
-      @router.recognize(request) do |route, parameters|
+    def find_route
+      @router.recognize(@request) do |route, parameters|
         remove_blacklisted_parameters(parameters)
         return MatchedRoute.new(route, parameters)
       end
