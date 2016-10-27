@@ -5,10 +5,12 @@ RSpec.describe ApiSampler::EndpointQuery do
   describe '#having_any_samples' do
     # Create two endpoints, one of them has two samples,
     # the other has none.
-    let(:endpoint) { FactoryGirl.create(:endpoint) }
+    let!(:endpoint) do
+      FactoryGirl.create(:endpoint, create_samples: true, count: 2)
+    end
+
     before do
       FactoryGirl.create(:endpoint)
-      FactoryGirl.create_list(:sample, 2, endpoint: endpoint)
     end
 
     let(:endpoints_with_samples) { subject.having_any_samples.to_a }
