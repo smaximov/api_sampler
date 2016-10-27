@@ -10,3 +10,4 @@ spec/dummy/tmp/
 .ruby-gemset
 /.byebug_history
 .tern-port
+/Gemfile.lock
