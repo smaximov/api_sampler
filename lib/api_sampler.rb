@@ -1,4 +1,9 @@
 # frozen_string_literal: true
+
+# Bundled dependencies
+require 'autoprefixer-rails'
+require 'less/rails/semantic_ui'
+
 require 'api_sampler/engine'
 require 'api_sampler/configuration'
 require 'api_sampler/request_matcher'

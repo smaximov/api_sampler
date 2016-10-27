@@ -1,9 +1,12 @@
-<table>
-  <% @endpoints.each do |endpoint| %>
+<table class="ui green unstackable striped celled table">
+  <thead>
     <tr>
-      <td><%= endpoint.request_method %></td>
-      <td><%= endpoint.path %></td>
-      <td><%= endpoint.samples_count %></td>
+      <th class="three wide right aligned"><%= t('.http_verb') %></th>
+      <th class="center aligned"><%= t('.endpoint') %></th>
+      <th class="three wide"><%= t('.samples_count') %></th>
     </tr>
-  <% end %>
+  </thead>
+  <tbody>
+    <%= render @endpoints %>
+  </tbody>
 </table>

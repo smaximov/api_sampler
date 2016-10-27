@@ -1,0 +1,7 @@
+en:
+  api_sampler:
+    endpoints:
+      index:
+        http_verb: HTTP Verb
+        endpoint: Endpoint
+        samples_count: Samples Count
