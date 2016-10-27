@@ -15,5 +15,4 @@ before_script:
   - bundle exec yard config load_plugins true
 matrix:
   allow_failures:
-    rvm:
-      - ruby-head
+    - rvm: ruby-head
