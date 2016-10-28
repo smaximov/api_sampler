@@ -7,6 +7,8 @@ module ApiSampler
     sortable :samples_count, validate: false
     sortable_default column: :path
 
+    paginates_per 20
+
     has_many :samples
 
     validates :path, presence: true

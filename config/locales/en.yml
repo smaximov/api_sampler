@@ -5,3 +5,8 @@ en:
         http_verb: HTTP Verb
         endpoint: Endpoint
         samples_count: Samples Count
+    pagination:
+      prev: Previous page
+      next: Next page
+      current: Current page
+      page: "Page %{page}"

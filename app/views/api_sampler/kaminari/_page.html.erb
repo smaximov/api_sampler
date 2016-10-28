@@ -1,0 +1,9 @@
+<% if page.current? %>
+  <a class="item active" href="<%= url %>" title="<%= t('api_sampler.pagination.current') %>">
+    <%= page %>
+  </a>
+<% else %>
+  <a class="item" href="<%= url %>" title="<%= t('api_sampler.pagination.page', page: page) %>">
+    <%= page %>
+  </a>
+<% end %>

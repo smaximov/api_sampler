@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   # Frontend
   s.add_dependency 'autoprefixer-rails', '~> 6.5'
   s.add_dependency 'jquery-rails'
+  s.add_dependency 'kaminari'
   s.add_dependency 'less-rails-semantic_ui', '~> 2.2'
 
   # Testing

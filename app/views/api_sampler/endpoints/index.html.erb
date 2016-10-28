@@ -15,4 +15,11 @@
   <tbody>
     <%= render @endpoints %>
   </tbody>
+  <tfoot>
+    <th colspan="3">
+      <%=
+        paginate @endpoints, views_prefix: 'api_sampler'
+        %>
+    </th>
+  </tfoot>
 </table>
