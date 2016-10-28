@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 module ApiSampler
   class Endpoint < ApplicationRecord
+    include Sortable
+
+    sortable :path, :request_method
+    sortable :samples_count, validate: false
+    sortable_default column: :path
+
     has_many :samples
 
     validates :path, presence: true

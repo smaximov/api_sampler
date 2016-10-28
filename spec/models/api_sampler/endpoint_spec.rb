@@ -18,5 +18,7 @@ module ApiSampler
         .in_array(ApiSampler::HTTP_METHODS)
     end
     it { is_expected.to have_many(:samples) }
+
+    it { is_expected.to be_kind_of(ApiSampler::Sortable) }
   end
 end

@@ -3,10 +3,11 @@
 module ApiSampler
   class EndpointsController < ApplicationController
     def index
-      relation = ApiSampler::Endpoint.order(updated_at: :desc)
+      relation = ApiSampler::Endpoint.all
       query = EndpointQuery.new(relation)
 
-      @endpoints = query.having_any_samples
+      @sorter = ApiSampler::Endpoint.sort_with(params)
+      @endpoints = query.having_any_samples.order(@sorter.order)
     end
   end
 end

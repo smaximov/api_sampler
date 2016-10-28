@@ -1,9 +1,15 @@
-<table class="ui green unstackable striped celled table">
+<table class="ui green unstackable sortable striped celled table">
   <thead>
     <tr>
-      <th class="three wide right aligned"><%= t('.http_verb') %></th>
-      <th class="center aligned"><%= t('.endpoint') %></th>
-      <th class="three wide"><%= t('.samples_count') %></th>
+      <th class="two wide right aligned <%= @sorter.dir_class(:request_method) %>">
+        <%= link_to t('.http_verb'), @sorter.sort_by(:request_method) %>
+      </th>
+      <th class="center aligned <%= @sorter.dir_class(:path) %>">
+        <%= link_to t('.endpoint'), @sorter.sort_by(:path) %>
+      </th>
+      <th class="two wide <%= @sorter.dir_class(:samples_count) %>">
+        <%= link_to t('.samples_count'), @sorter.sort_by(:samples_count) %>
+      </th>
     </tr>
   </thead>
   <tbody>
