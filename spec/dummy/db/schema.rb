@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161026095738) do
+ActiveRecord::Schema.define(version: 20161028081859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20161026095738) do
     t.index ["name"], name: "index_api_sampler_tags_on_name", unique: true, using: :btree
   end
 
-  add_foreign_key "api_sampler_samples", "api_sampler_endpoints", column: "endpoint_id"
+  add_foreign_key "api_sampler_samples", "api_sampler_endpoints", column: "endpoint_id", on_delete: :cascade
   add_foreign_key "api_sampler_samples_tags", "api_sampler_samples", column: "sample_id", on_delete: :cascade
   add_foreign_key "api_sampler_samples_tags", "api_sampler_tags", column: "tag_id"
 end
