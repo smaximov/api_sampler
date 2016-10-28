@@ -2,6 +2,7 @@
 
 # Bundled dependencies
 require 'autoprefixer-rails'
+require 'jquery-rails'
 require 'less/rails/semantic_ui'
 
 require 'api_sampler/engine'
