@@ -85,6 +85,8 @@ module ApiSampler
     end
 
     class Sorter
+      include ActionView::Helpers::TagHelper
+
       attr_reader :sort, :dir, :sortable, :params, :defaults
 
       def initialize(sortable, params)
@@ -115,16 +117,20 @@ module ApiSampler
         { 'sort' => column, 'dir' => direction }
       end
 
+      def sort_dir(column)
+        content_tag('i', '', class: "sort #{dir_class(column)} icon")
+      end
+
+      private
+
       def dir_class(column)
         return nil unless sort == column.to_s
 
         case params['dir']
-        when 'asc' then 'sorted ascending'
-        when 'desc' then 'sorted descending'
+        when 'asc' then 'ascending'
+        when 'desc' then 'descending'
         end
       end
-
-      private
 
       def whitelisted_param(whitelist, name)
         param = params[name]

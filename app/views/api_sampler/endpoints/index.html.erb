@@ -1,14 +1,14 @@
 <table class="ui green unstackable sortable striped celled table">
   <thead>
     <tr>
-      <th class="two wide right aligned <%= @sorter.dir_class(:request_method) %>">
-        <%= link_to t('.http_verb'), @sorter.sort_by(:request_method) %>
+      <th class="two wide right aligned">
+        <%= sortable_column(t('.http_verb'), :request_method) %>
       </th>
-      <th class="center aligned <%= @sorter.dir_class(:path) %>">
-        <%= link_to t('.endpoint'), @sorter.sort_by(:path) %>
+      <th class="center aligned">
+        <%= sortable_column(t('.endpoint'), :path) %>
       </th>
-      <th class="two wide <%= @sorter.dir_class(:samples_count) %>">
-        <%= link_to t('.samples_count'), @sorter.sort_by(:samples_count) %>
+      <th class="two wide">
+        <%= sortable_column(t('.samples_count'), :samples_count) %>
       </th>
     </tr>
   </thead>
