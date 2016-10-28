@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # Bundled dependencies
+require 'active_attr'
 require 'autoprefixer-rails'
 require 'jquery-rails'
 require 'kaminari'

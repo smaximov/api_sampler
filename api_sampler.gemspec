@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
                 'MIT-LICENSE', 'Rakefile', 'README.md']
 
   # Backend
+  s.add_dependency 'active_attr', '~> 0.9'
   s.add_dependency 'rails', '~> 5.0.0', '>= 5.0.0.1'
 
   # Frontend

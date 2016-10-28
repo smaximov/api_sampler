@@ -1,3 +1,19 @@
+<div class="ui segments">
+  <div class="ui secondary segment">
+    <%= @endpoint.request_method %> <%= @endpoint.path %>
+  </div>
+
+  <%= form_for @samples_filter, url: api_sampler.endpoint_samples_path(@endpoint),
+                                method: 'GET', html: { class: 'ui form segment' } do |f| %>
+    <div class="field">
+      <%= f.select 'tags', tags(@samples_filter), { include_blank: t('.select_tags') },
+                           class: 'ui fluid search dropdown', multiple: true %>
+    </div>
+
+    <%= f.submit t('.filter'), class: 'ui primary button' %>
+  <% end %>
+</div>
+
 <table class="ui blue unstackable sortable striped celled table">
   <thead>
     <tr>

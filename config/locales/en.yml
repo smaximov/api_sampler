@@ -2,17 +2,19 @@ en:
   api_sampler:
     endpoints:
       index:
-        http_verb: HTTP Verb
         endpoint: Endpoint
+        http_verb: HTTP Verb
         samples_count: Samples Count
+    pagination:
+      current: Current page
+      next: Next page
+      page: "Page %{page}"
+      prev: Previous page
     samples:
       index:
+        collected_at: Collected at
+        filter: Filter
         path_params: Path parameters
         query_params: Query parameters
+        select_tags: Select tags
         tags: Tags
-        collected_at: Collected at
-    pagination:
-      prev: Previous page
-      next: Next page
-      current: Current page
-      page: "Page %{page}"

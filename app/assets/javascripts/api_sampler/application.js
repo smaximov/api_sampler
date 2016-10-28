@@ -14,3 +14,11 @@
 //= require jquery_ujs
 //= require semantic_ui/semantic_ui
 //= require_tree .
+
+$(document).ready(function() {
+  $('.search.dropdown')
+    .dropdown({
+      match: 'text',
+      forceSelection: false
+    })
+})
