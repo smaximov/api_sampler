@@ -18,3 +18,7 @@
 .ui.sortable.table th > a {
   display: block;
 }
+
+body {
+  padding-top: 25px;
+}
