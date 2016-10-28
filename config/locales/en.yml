@@ -5,6 +5,12 @@ en:
         http_verb: HTTP Verb
         endpoint: Endpoint
         samples_count: Samples Count
+    samples:
+      index:
+        path_params: Path parameters
+        query_params: Query parameters
+        tags: Tags
+        collected_at: Collected at
     pagination:
       prev: Previous page
       next: Next page

@@ -1,0 +1,16 @@
+<table class="ui blue unstackable sortable striped celled table">
+  <thead>
+    <tr>
+      <th><%= t('.path_params') %></th>
+      <th><%= t('.query_params') %></th>
+      <th><%= t('.tags') %></th>
+      <th><%= sortable_column(t('.collected_at'), :created_at) %></th>
+    </tr>
+  </thead>
+  <tbody><%= render @samples %></tbody>
+  <tfoot>
+    <th colspan="4">
+      <%= paginate @samples, views_prefix: 'api_sampler' %>
+    </th>
+  </tfoot>
+</table>

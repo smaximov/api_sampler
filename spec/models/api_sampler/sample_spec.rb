@@ -13,5 +13,7 @@ module ApiSampler
     it { is_expected.to validate_length_of(:query).is_at_least(0) }
     it { is_expected.to validate_length_of(:request_body).is_at_least(0) }
     it { is_expected.to validate_length_of(:response_body).is_at_least(0) }
+
+    it { is_expected.to be_kind_of(ApiSampler::Sortable) }
   end
 end

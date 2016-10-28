@@ -1,5 +1,7 @@
 <tr>
   <td class="right aligned"><%= endpoint.request_method %></td>
-  <td class="center aligned"><%= endpoint.path %></td>
+  <td class="center aligned">
+    <%= link_to endpoint.path, api_sampler.endpoint_samples_path(endpoint) %>
+  </td>
   <td><%= endpoint.samples_count %></td>
 </tr>
