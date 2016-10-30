@@ -46,6 +46,9 @@ ApiSampler.configure do |config|
   #
   # Tag slow requests with the tag 'slow':
   #     config.tag_with(:slow) { |request| request.time > 200 }
+  #
+  # Assigning colors to tags
+  #     config.tag_with(:deprecated, %r{^/api/v1/.*}, color: 'red')
 
   # List of keys to exclude from the path parameters of the request.
   # Following parameters are excluded by default:

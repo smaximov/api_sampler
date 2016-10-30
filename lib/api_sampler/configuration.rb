@@ -7,6 +7,9 @@ module ApiSampler
     # request.
     PATH_PARAMS_BLACKLIST = [:action, :controller].freeze # rubocop:disable Style/SymbolArray
 
+    TAG_COLORS = %w(red orange yellow olive green teal blue
+                    violet purple pink brown grey black).freeze
+
     def initialize
       @path_params_blacklist = PATH_PARAMS_BLACKLIST.dup
     end
@@ -47,8 +50,7 @@ module ApiSampler
     # @note rules defined here may be overriden by the rules defined in
     #   {#deny}.
     def allow(rule = nil, &block)
-      raise ArgumentError, 'either rule or block should be specified' if
-        (rule.nil? && block.nil?) || (rule.present? && block.present?)
+      validate_rule(rule, block)
 
       request_whitelist << RequestMatcher.new(rule || block)
     end
@@ -85,8 +87,7 @@ module ApiSampler
     # @note rules defined here take precedence over the rules defined in
     #   {#allow}.
     def deny(rule = nil, &block)
-      raise ArgumentError, 'either rule or block should be specified' if
-        (rule.nil? && block.nil?) || (rule.present? && block.present?)
+      validate_rule(rule, block)
 
       request_blacklist << RequestMatcher.new(rule || block)
     end
@@ -177,6 +178,11 @@ module ApiSampler
     #     config.tag_with(:slow) { |request| request.time > 200 }
     #   end
     #
+    # @example Assigning color to tags:
+    #   ApiSampler.configure do |config|
+    #     config.tag_with(:deprecated, %r{^/api/v1/.*}, color: 'red')
+    #   end
+    #
     # @return [void]
     # @raise [ArgumentError] if arguments are invalid.
     #
@@ -184,9 +190,15 @@ module ApiSampler
     #   @param tag [#to_s]
     #     a non-blank label which should tag matching requests.
     #   @param (see ApiSampler::RequestMatcher#initialize)
+    #   @param color [#to_s]
+    #     an optional tag color. See {::TAG_COLORS} for the list of
+    #     available color names.
     # @overload tag_with(tag)
     #   @param tag [#to_s]
     #     a non-blank label which should tag matching requests.
+    #   @param color [#to_s]
+    #     an optional tag color. See {::TAG_COLORS} for the list of
+    #     available color names.
     #
     #   @yield [request]
     #     block which takes the request and returns whether that request
@@ -196,11 +208,11 @@ module ApiSampler
     #
     # @note rules defined here may be overriden by the rules defined in
     #   {#deny}.
-    def tag_with(tag, rule = nil, &block)
-      raise ArgumentError, 'either rule or block should be specified' if
-        (rule.nil? && block.nil?) || (rule.present? && block.present?)
+    def tag_with(tag, rule = nil, color: nil, &block)
+      validate_rule(rule, block)
 
       request_tags << RequestTag.new(tag, RequestMatcher.new(rule || block))
+      tag_colors[tag] = color.to_s.strip unless color.blank?
     end
 
     # @!attribute [r] request_tags
@@ -208,6 +220,25 @@ module ApiSampler
     #   the set of pairs (tag, rule).
     def request_tags
       @request_tags ||= []
+    end
+
+    # @!attribute [r] tag_colors
+    # @return [{ #to_s => String}] a mapping from tags to colors.
+    def tag_colors
+      @tag_colors ||= {}
+    end
+
+    # @param tag [#to_s] the tag name.
+    # @return [String, nil]
+    #   the color assigned to the tag, if any (and the assigned color is a
+    #   known color from {::TAG_COLORS}), nil otherwise.
+    def tag_color(tag)
+      color = tag_colors[tag]
+
+      return if color.nil?
+      return unless TAG_COLORS.include?(color)
+
+      color
     end
 
     # List of keys to exclude from the path parameters of the request.
@@ -230,6 +261,13 @@ module ApiSampler
 
     def path_params_blacklist=(blacklisted_params)
       @path_params_blacklist = Array(blacklisted_params)
+    end
+
+    private
+
+    def validate_rule(rule, block)
+      raise ArgumentError, 'either rule or block should be specified' if
+        (rule.nil? && block.nil?) || (rule.present? && block.present?)
     end
   end
 end

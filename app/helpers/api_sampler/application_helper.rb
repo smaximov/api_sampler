@@ -9,6 +9,12 @@ module ApiSampler
       end
     end
 
+    # @return [String, nil]
+    #   the color assigned to the tag, if any.
+    def tag_color(tag)
+      ApiSampler.config.tag_color(tag)
+    end
+
     private
 
     attr_reader :sorter

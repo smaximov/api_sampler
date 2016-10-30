@@ -16,9 +16,13 @@
 //= require_tree .
 
 $(document).ready(function() {
-  $('.search.dropdown')
+  var tags = $('.search.dropdown')
     .dropdown({
       match: 'text',
-      forceSelection: false
+      forceSelection: false,
+      onLabelCreate: function(value, text) {
+        var color = $('.search.dropdown').find('option[value="' + value + '"]').attr('class')
+        return this.addClass(color)
+      }
     })
 })

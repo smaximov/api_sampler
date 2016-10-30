@@ -162,6 +162,20 @@ RSpec.describe ApiSampler::Configuration do
         }.not_to raise_error
       end
     end
+
+    context 'with a blank color' do
+      it do
+        subject.tag_with(:foo, /foo/, color: '')
+        expect(subject.tag_colors[:foo]).to be_nil
+      end
+    end
+
+    context 'with a non-blank color' do
+      it 'strips the color' do
+        subject.tag_with(:foo, /foo/, color: ' with surrounding spaces ')
+        expect(subject.tag_colors[:foo]).to eq('with surrounding spaces')
+      end
+    end
   end
 
   describe '#path_params_blacklist' do
@@ -179,6 +193,29 @@ RSpec.describe ApiSampler::Configuration do
 
       it 'it sets #path_params_blacklist to an empty list' do
         expect(subject.path_params_blacklist).to eq([])
+      end
+    end
+  end
+
+  describe '#tag_color' do
+    context 'when not assigned a color' do
+      it do
+        subject.tag_with(:tag, /foo/)
+        expect(subject.tag_color(:tag)).to be_nil
+      end
+    end
+
+    context 'when assigned an unknown color' do
+      it do
+        subject.tag_with(:tag, /foo/, color: 'unknown')
+        expect(subject.tag_color(:tag)).to be_nil
+      end
+    end
+
+    context 'with assigned a known color' do
+      it do
+        subject.tag_with(:tag, /foo/, color: 'red')
+        expect(subject.tag_color(:tag)).to eq('red')
       end
     end
   end
