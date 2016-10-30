@@ -114,7 +114,7 @@ module ApiSampler
     # @note Samples are stored indefinetely by default.
     #
     # @example Store collected samples for one day
-    #   AppSampler.configure do |config|
+    #   ApiSampler.configure do |config|
     #     config.samples_expire_in 1.day
     #   end
     #
@@ -139,7 +139,7 @@ module ApiSampler
     # Set maxumum number of samples collected per time inteval.
     #
     # @example Collect at most 100 samples per day
-    #   AppSampler.configure do |config|
+    #   ApiSampler.configure do |config|
     #     config.samples_quota count: 100, per: 1.day
     #   end
     #
@@ -214,12 +214,12 @@ module ApiSampler
     # Keys from {PATH_PARAMS_BLACKLIST} are excluded by default.
     #
     # @example Exclude :id from path parameters
-    #   AppSampler.configure do |config|
+    #   ApiSampler.configure do |config|
     #     config.path_params_blacklist = %i(id)
     #   end
     #
     # @example Don't exclude any parameters from path parameters
-    #   AppSampler.configure do |config|
+    #   ApiSampler.configure do |config|
     #     config.path_params_blacklist = nil
     #   end
     #
