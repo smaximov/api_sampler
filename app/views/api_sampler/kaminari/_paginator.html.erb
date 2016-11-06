@@ -1,5 +1,5 @@
 <%= paginator.render do %>
-  <nav class="ui right floated mobile only pagination menu">
+  <nav class="ui right floated pagination menu">
     <%= prev_page_tag unless current_page.first? %>
     <% each_page do |page| %>
       <% if page.left_outer? || page.right_outer? || page.inside_window? %>
