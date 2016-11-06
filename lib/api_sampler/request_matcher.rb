@@ -40,7 +40,7 @@ module ApiSampler
 
     def validate_and_normalize_rule(rule)
       if rule.is_a?(Regexp)
-        -> (request) { rule =~ request.path }
+        ->(request) { rule =~ request.path }
       elsif rule.respond_to?(:call)
         rule
       else
