@@ -7,7 +7,7 @@ module ApiSampler
     def index
       query = ApiSampler::SampleQuery.new(@endpoint.samples)
 
-      @samples_filter = ApiSampler::SamplesFilter.new(params[:samples_filter])
+      @samples_filter = ApiSampler::SamplesFilter.new(samples_filter_params)
       @sorter = ApiSampler::Sample.sort_with(params)
       @samples = query.with_filter(@samples_filter)
                       .order(@sorter.order)
@@ -18,6 +18,10 @@ module ApiSampler
 
     def set_endpoint
       @endpoint = ApiSampler::Endpoint.find(params[:endpoint_id])
+    end
+
+    def samples_filter_params
+      params.fetch(:samples_filter, tags: []).permit(tags: [])
     end
   end
 end
