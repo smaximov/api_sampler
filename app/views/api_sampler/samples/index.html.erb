@@ -23,7 +23,16 @@
       <th><%= sortable_column(t('.collected_at'), :created_at) %></th>
     </tr>
   </thead>
-  <tbody><%= render @samples %></tbody>
+  <tbody>
+    <% @samples.each do |sample| %>
+      <tr>
+        <td><%= sample.path_params %></td>
+        <td><%= sample.query %></td>
+        <td><%= render sample.tags %></td>
+        <td><%= sample.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
   <tfoot>
     <th colspan="4">
       <%= paginate @samples, views_prefix: 'api_sampler' %>

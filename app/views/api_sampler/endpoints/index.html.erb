@@ -13,7 +13,15 @@
     </tr>
   </thead>
   <tbody>
-    <%= render @endpoints %>
+    <% @endpoints.each do |endpoint| %>
+      <tr>
+        <td class="right aligned"><%= endpoint.request_method %></td>
+        <td class="center aligned">
+          <%= link_to endpoint.path, api_sampler.endpoint_samples_path(endpoint) %>
+        </td>
+        <td><%= endpoint.samples_count %></td>
+      </tr>
+    <% end %>
   </tbody>
   <tfoot>
     <th colspan="3">
