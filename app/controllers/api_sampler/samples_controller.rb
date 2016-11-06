@@ -14,6 +14,11 @@ module ApiSampler
                       .page(params[:page])
     end
 
+    def delete
+      @endpoint.samples.where(id: params[:ids]).destroy_all
+      redirect_to api_sampler.endpoint_samples_path(@endpoint)
+    end
+
     private
 
     def set_endpoint

@@ -7,6 +7,10 @@ ApiSampler::Engine.routes.draw do
   root to: 'endpoints#index'
   resources :endpoints, only: %i(index), concerns: :paginatable,
                         shallow: true do
-    resources :samples, only: %i(index), concerns: :paginatable
+    resources :samples, only: %i(index), concerns: :paginatable do
+      collection do
+        delete :delete
+      end
+    end
   end
 end

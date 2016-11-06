@@ -13,6 +13,7 @@ en:
     samples:
       index:
         collected_at: Collected at
+        delete: Delete
         filter: Filter
         path_params: Path parameters
         query_params: Query parameters

@@ -14,9 +14,11 @@
   <% end %>
 </div>
 
-<table class="ui blue unstackable sortable striped celled table">
+<%= form_tag api_sampler.delete_endpoint_samples_path(@endpoint), method: :delete do %>
+<table class="ui blue unstackable sortable striped celled definition table">
   <thead>
     <tr>
+      <th></th>
       <th><%= t('.path_params') %></th>
       <th><%= t('.query_params') %></th>
       <th><%= t('.tags') %></th>
@@ -26,6 +28,11 @@
   <tbody>
     <% @samples.each do |sample| %>
       <tr>
+        <td class="collapsing">
+          <div class="ui fitted slider delete checkbox">
+            <%= check_box_tag "ids[]", sample.id, false, id: "sample-#{sample.id}" %>
+          </div>
+        </td>
         <td><%= sample.path_params %></td>
         <td><%= sample.query %></td>
         <td><%= render sample.tags %></td>
@@ -34,8 +41,11 @@
     <% end %>
   </tbody>
   <tfoot>
+    <th></th>
     <th colspan="4">
+      <%= submit_tag t('.delete'), class: 'ui negative disabled button', id: 'delete-samples' %>
       <%= paginate @samples, views_prefix: 'api_sampler' %>
     </th>
   </tfoot>
 </table>
+<% end %>

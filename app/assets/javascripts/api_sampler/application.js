@@ -25,4 +25,24 @@ $(document).ready(function() {
         return this.addClass(color)
       }
     })
+
+  var deleteSamples = $('#delete-samples')
+
+  if (deleteSamples.length > 0) {
+    var checked = new Set()
+
+    $('.ui.delete.checkbox').checkbox({
+      onChecked: function() {
+        checked.add(this.value)
+        deleteSamples.removeClass('disabled')
+      },
+      onUnchecked: function() {
+        checked.delete(this.value)
+
+        if (checked.size == 0) {
+          deleteSamples.addClass('disabled')
+        }
+      }
+    })
+  }
 })
