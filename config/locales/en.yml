@@ -16,6 +16,11 @@ en:
         delete: Delete
         filter: Filter
         path_params: Path parameters
+        path_params_add: Add
         query_params: Query parameters
         select_tags: Select tags
         tags: Tags
+      path_param:
+        name: Parameter
+        remove: Remove
+        value: Value

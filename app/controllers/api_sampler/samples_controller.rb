@@ -26,7 +26,9 @@ module ApiSampler
     end
 
     def samples_filter_params
-      params.fetch(:samples_filter, tags: []).permit(tags: [])
+      params
+        .fetch(:samples_filter, tags: [], path_params: [])
+        .permit(tags: [], path_params: %i(param value))
     end
   end
 end

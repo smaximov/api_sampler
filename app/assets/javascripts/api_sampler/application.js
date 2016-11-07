@@ -15,6 +15,45 @@
 //= require semantic_ui/semantic_ui
 //= require_tree .
 
+function removePathParam() {
+  $(this).closest('.fields').remove()
+}
+
+function addPathParam() {
+  var paramI18n = $(this).data('paramI18n')
+  var container = $('<div>', {
+    'class': 'three fields'
+  })
+
+  $('<div>', { 'class': 'field' })
+    .append($('<input>', {
+      type: 'text',
+      name: 'samples_filter[path_params][][param]',
+      placeholder: paramI18n.name
+    }))
+    .appendTo(container)
+
+  $('<div>', { 'class': 'field' })
+    .append($('<input>', {
+      type: 'text',
+      name: 'samples_filter[path_params][][value]',
+      placeholder: paramI18n.value
+    }))
+    .appendTo(container)
+
+  $('<div>', { 'class': 'field' })
+    .append($('<button>', {
+      'class': 'ui right labeled icon button remove-path-param',
+      html: '<i class="ui remove icon"></i>' + paramI18n.remove,
+      on: {
+        click: removePathParam
+      }
+    }))
+    .appendTo(container)
+
+  container.insertBefore($(this))
+}
+
 $(document).ready(function() {
   var tags = $('.search.dropdown')
     .dropdown({
@@ -45,4 +84,7 @@ $(document).ready(function() {
       }
     })
   }
+
+  $('.remove-path-param').on('click', removePathParam)
+  $('.add-path-param').on('click', addPathParam)
 })

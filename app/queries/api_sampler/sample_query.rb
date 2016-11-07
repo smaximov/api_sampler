@@ -16,16 +16,35 @@ module ApiSampler
         api_sampler_samples_tags.tag_id in (?)
       SQL
 
+      PARAMS_WHERE = <<-SQL.squish
+        path_params @> hstore(ARRAY[:params], ARRAY[:values])
+      SQL
+
       # Return samples filtered using form conditions.
       # @param filter [ApiSampler::SamplesFilter] the samples filter.
       def with_filter(filter)
-        tags = filter.tags
+        tags, path_params = filter.tags, filter.path_params
 
         scope = self
         scope = scope.distinct.joins(TAGS_JOIN).where(TAGS_WHERE, tags) unless
           tags.blank?
+        scope = scope.where(PARAMS_WHERE, params_values(path_params)) unless
+          path_params.blank?
 
         scope
+      end
+
+      private
+
+      def params_values(path_params)
+        params, values = [], []
+
+        path_params.each do |param|
+          params << param['param']
+          values << param['value']
+        end
+
+        { params: params, values: values }
       end
     end
   end

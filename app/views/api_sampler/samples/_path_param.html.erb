@@ -1,0 +1,21 @@
+<div class="three fields">
+
+  <div class="field">
+    <%= text_field_tag 'samples_filter[path_params][][param]', path_param['param'],
+        placeholder: t('.name'), id: nil %>
+  </div>
+
+  <div class="field">
+    <%= text_field_tag 'samples_filter[path_params][][value]', path_param['value'],
+        placeholder: t('.value'), id: nil %>
+  </div>
+
+  <div class="field">
+    <button class="ui right labeled icon button remove-path-param"
+            type="button">
+      <i class="ui remove icon"></i>
+      <%= t('.remove') %>
+    </button>
+  </div>
+
+</div>

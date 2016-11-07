@@ -5,13 +5,30 @@
 
   <%= form_for @samples_filter, url: api_sampler.endpoint_samples_path(@endpoint),
                                 method: 'GET', html: { class: 'ui form segment' } do |f| %>
-    <div class="field">
-      <%= f.select 'tags', tags(@samples_filter), { include_blank: t('.select_tags') },
-                           class: 'ui fluid search dropdown', multiple: true %>
+
+    <div class="two fields">
+      <div class="field">
+        <%= f.label :tags, t('.tags') %>
+        <%= f.select 'tags', tags(@samples_filter), { include_blank: t('.select_tags') },
+            class: 'ui fluid search dropdown', multiple: true %>
+      </div>
+
+      <div class="field">
+        <%= f.label :path_params, t('.path_params') %>
+        <%= render partial: 'path_param', collection: @samples_filter.path_params, as: :path_param %>
+        <%= render 'path_param', path_param: {} %>
+
+        <button class="ui right labeled icon button add-path-param" type="button"
+                data-param-i18n="<%= t('api_sampler.samples.path_param').to_json %>">
+          <i class="ui add icon"></i>
+          <%= t('.path_params_add') %>
+        </button>
+      </div>
     </div>
 
     <%= f.submit t('.filter'), class: 'ui primary button' %>
   <% end %>
+
 </div>
 
 <%= form_tag api_sampler.delete_endpoint_samples_path(@endpoint), method: :delete do %>
