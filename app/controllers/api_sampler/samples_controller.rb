@@ -21,13 +21,13 @@ module ApiSampler
     end
 
     def request_body
-      render text: @sample.request_body
+      render plain: @sample.request_body
     end
 
     # ActionController already has `#response_body`, so we need to pick
     # another name for the action, hence the trailing underscore.
     def response_body_
-      render text: @sample.response_body
+      render plain: @sample.response_body
     end
 
     private
