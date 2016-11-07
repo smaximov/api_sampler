@@ -17,7 +17,6 @@ ApiSampler.configure do |config|
   #
   # Allow all requests:
   #     config.allow(/.*/)
-  config.allow(/.*/)            # allow all requests
 
   # Define rules to deny requests previously matched by `allow` rules.
   #
