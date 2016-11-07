@@ -11,6 +11,11 @@ ApiSampler::Engine.routes.draw do
       collection do
         delete :delete
       end
+
+      member do
+        get :request_body
+        get :response_body, action: :response_body_
+      end
     end
   end
 end

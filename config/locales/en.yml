@@ -18,6 +18,9 @@ en:
         path_params: Path parameters
         path_params_add: Add
         query_params: Query parameters
+        request_body: Request
+        response_body: Response
+        bodies: Sample bodies
         select_tags: Select tags
         tags: Tags
       path_param:
