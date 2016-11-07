@@ -20,6 +20,9 @@ module ApiSampler
     end
 
     initializer 'api_sampler.assets.precompile' do |app|
+      app.config.assets.precompile << %w(
+        api_sampler/endpoints.js api_sampler/samples.js
+      )
       app.config.assets.precompile <<
         %r{semantic-ui/themes/.*\.(?:eot|svg|ttf|woff|woff2|png|gif)$}
     end
