@@ -2,10 +2,8 @@
 
 # Bundled dependencies
 require 'active_attr'
-require 'autoprefixer-rails'
 require 'jquery-rails'
 require 'kaminari'
-require 'less/rails/semantic_ui'
 
 require 'api_sampler/engine'
 require 'api_sampler/configuration'

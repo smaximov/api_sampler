@@ -15,8 +15,13 @@ module ApiSampler
   class Engine < ::Rails::Engine
     isolate_namespace ApiSampler
 
-    initializer 'app_sampler.add_middleware' do |app|
+    initializer 'api_sampler.add_middleware' do |app|
       app.middleware.use Middleware
+    end
+
+    initializer 'api_sampler.assets.precompile' do |app|
+      app.config.assets.precompile <<
+        %r{semantic-ui/themes/.*\.(?:eot|svg|ttf|woff|woff2|png|gif)$}
     end
 
     config.generators do |g|
