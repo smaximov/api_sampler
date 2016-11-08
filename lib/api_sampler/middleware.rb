@@ -15,7 +15,9 @@ module ApiSampler
       request = ActionDispatch::Request.new(env)
 
       resolve_route(request) do |route|
-        sample = collect_sample(route, request, response) if allowed?(request)
+        break unless allowed?(request)
+
+        sample = collect_sample(route, request, response)
         tag(sample, request)
       end
 
