@@ -212,7 +212,7 @@ module ApiSampler
       validate_rule(rule, block)
 
       request_tags << RequestTag.new(tag, RequestMatcher.new(rule || block))
-      tag_colors[tag] = color.to_s.strip unless color.blank?
+      tag_colors[tag.to_s] = color.to_s.strip unless color.blank?
     end
 
     # @!attribute [r] request_tags
@@ -233,7 +233,7 @@ module ApiSampler
     #   the color assigned to the tag, if any (and the assigned color is a
     #   known color from {::TAG_COLORS}), nil otherwise.
     def tag_color(tag)
-      color = tag_colors[tag]
+      color = tag_colors[tag.to_s]
 
       return if color.nil?
       return unless TAG_COLORS.include?(color)

@@ -165,15 +165,24 @@ RSpec.describe ApiSampler::Configuration do
 
     context 'with a blank color' do
       it do
-        subject.tag_with(:foo, /foo/, color: '')
-        expect(subject.tag_colors[:foo]).to be_nil
+        subject.tag_with('foo', /foo/, color: '')
+        expect(subject.tag_colors['foo']).to be_nil
       end
     end
 
     context 'with a non-blank color' do
       it 'strips the color' do
-        subject.tag_with(:foo, /foo/, color: ' with surrounding spaces ')
-        expect(subject.tag_colors[:foo]).to eq('with surrounding spaces')
+        subject.tag_with('foo', /foo/, color: ' with surrounding spaces ')
+        expect(subject.tag_colors['foo']).to eq('with surrounding spaces')
+      end
+    end
+
+    context 'when tag name is a Symbol' do
+      it 'stringifies the tag name' do
+        subject.tag_with(:foo, /foo/, color: 'red')
+        expect(subject.request_tags.first.name).to eq('foo')
+        expect(subject.tag_colors).to have_key('foo')
+        expect(subject.tag_colors).not_to have_key(:foo)
       end
     end
   end
