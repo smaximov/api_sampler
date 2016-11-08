@@ -6,6 +6,9 @@
 
 Collect samples (request/response pairs) for API endpoints of your Rails app.
 
+[Demo](https://api-sampler-demo.herokuapp.com/)
+([demo source](https://github.com/smaximov/api_sampler_demo)).
+
 ## Installation
 
 Add this line to your application's Gemfile:
