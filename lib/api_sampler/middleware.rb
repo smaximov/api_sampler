@@ -83,7 +83,7 @@ module ApiSampler
       return if ApiSampler.config.samples_expiration_duration.nil?
 
       expiration_bound = ApiSampler.config.samples_expiration_duration.ago
-      ApiSampler::Sample.where('created_at < ?', expiration_bound).destroy_all
+      ApiSampler::Sample.where('created_at < ?', expiration_bound).delete_all
     end
 
     # Tag the sample according to the rules in {Configuration#request_tags}.
